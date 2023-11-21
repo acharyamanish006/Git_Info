@@ -13,4 +13,6 @@ Project is not complete !
 5. ```bash
    #To get user following use -f flag
    go run main.go -u {git_username} -f
-   
+6. ```bash
+   #To get help
+   go run main.go -h
