@@ -25,6 +25,11 @@ type Follow []struct {
 func main() {
 	user := os.Args[1]
 
+	if len(os.Args) < 1 {
+		fmt.Println("Username not provided")
+		return
+	}
+
 	api := "https://api.github.com/users/" + user
 
 	getUserInfo(api)
@@ -68,7 +73,7 @@ func getUserFollower(api string) {
 	json.Unmarshal(body, &follower)
 
 	for i := 0; i < len(follower); i++ {
-		fmt.Println("|-->", follower[i])
+		fmt.Println("|-->", (follower[i].User))
 
 	}
 
@@ -88,7 +93,7 @@ func getUserFollowing(api string) {
 
 	json.Unmarshal(body, &following)
 	for i := 0; i < len(following); i++ {
-		fmt.Println("|-->", following[i])
+		fmt.Println("|-->", following[i].User)
 
 	}
 }
