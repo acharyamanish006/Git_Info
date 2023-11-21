@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -23,22 +24,13 @@ type Follow []struct {
 }
 
 func main() {
-	user := os.Args[1]
+	// user := os.Args[1]
 
-	if len(os.Args) < 1 {
-		fmt.Println("Username not provided")
-		return
-	}
-
-	api := "https://api.github.com/users/" + user
-
-	getUserInfo(api)
-	println(" ____________________________________________________________")
-	println("|                                                            |")
-	println("|--------------------[ Followers ]---------------------------|")
-	getUserFollower(api)
-	println("|--------------------[ Following ]---------------------------|")
-	getUserFollowing(api)
+	// if len(os.Args) < 1 {
+	// 	fmt.Println("Username not provided")
+	// 	return
+	// }
+	argsCommand()
 
 }
 
@@ -96,4 +88,53 @@ func getUserFollowing(api string) {
 		fmt.Println("|-->", following[i].User)
 
 	}
+}
+
+func argsCommand() {
+	userFlag := flag.String("u", "", "Specify the username")
+	followerFlag := flag.Bool("F", false, "Specify the follower")
+	followingFlag := flag.Bool("f", false, "Specify the following")
+	repoFlag := flag.String("r", "", "Specify the repository name")
+
+	flag.Parse()
+
+	if *userFlag == "" {
+		fmt.Println("Error: Username not provided. Use -u flag.")
+		os.Exit(1)
+	}
+
+	api := "https://api.github.com/users/" + *userFlag
+
+	switch {
+	case *followerFlag:
+		UserFollower(api)
+
+	case *followingFlag:
+		UserFollowing(api)
+
+	case *repoFlag != "":
+		fmt.Print("repo")
+		// Add logic for handling repository flag
+
+	default:
+		getUserInfo(api)
+	}
+}
+
+func UserFollower(api string) {
+
+	getUserInfo(api)
+	println(" ____________________________________________________________")
+	println("|                                                            |")
+	println("|--------------------[ Followers ]---------------------------|")
+	getUserFollower(api)
+
+}
+
+func UserFollowing(api string) {
+	getUserInfo(api)
+	println(" ____________________________________________________________")
+	println("|                                                            |")
+	println("|--------------------[ Following ]---------------------------|")
+	getUserFollowing(api)
 }
