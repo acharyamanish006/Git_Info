@@ -6,8 +6,4 @@ Project is not complete !
 # How To Run
 1. Clone this repository to your local machine using the following command:
 2. go run main.go {git username}
-    |
-    |
-    |-->example:
-      | 
-      |-->go run main.go acharyamanish006
+3. The program will then fetch all repositories from that user and print out their names, description, url, etc...
