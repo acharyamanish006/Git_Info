@@ -94,28 +94,29 @@ func argsCommand() {
 	userFlag := flag.String("u", "", "Specify the username")
 	followerFlag := flag.Bool("F", false, "Specify the follower")
 	followingFlag := flag.Bool("f", false, "Specify the following")
-	repoFlag := flag.String("r", "", "Specify the repository name")
+	help := flag.Bool("h", false, "Specify the repository name")
 
 	flag.Parse()
-
-	if *userFlag == "" {
-		fmt.Println("Error: Username not provided. Use -u flag.")
-		os.Exit(1)
-	}
 
 	api := "https://api.github.com/users/" + *userFlag
 
 	switch {
 	case *followerFlag:
+		if *userFlag == "" {
+			fmt.Println("Error: Username not provided. Use -u flag.")
+			os.Exit(1)
+		}
 		UserFollower(api)
 
 	case *followingFlag:
+		if *userFlag == "" {
+			fmt.Println("Error: Username not provided. Use -u flag.")
+			os.Exit(1)
+		}
 		UserFollowing(api)
 
-	case *repoFlag != "":
-		fmt.Print("repo")
-		// Add logic for handling repository flag
-
+	case *help:
+		Help()
 	default:
 		getUserInfo(api)
 	}
@@ -137,4 +138,22 @@ func UserFollowing(api string) {
 	println("|                                                            |")
 	println("|--------------------[ Following ]---------------------------|")
 	getUserFollowing(api)
+}
+func Help() {
+	println(" ____________________________________________________________________________________________________________________")
+	println("|                                                                                                                    |")
+	println("| The program will then fetch all repositories from that user and print out their names, description, url, etc...    |")
+	println("|____________________________________________________________________________________________________________________|")
+	println("|                                                                                                                    |")
+	println("| -->go run main.go -u {git_username}                                                                                |")
+	println("|____________________________________________________________________________________________________________________|")
+	println("| => To get user followers use -F flag                                                                               |")
+	println("|                                                                                                                    |")
+	println("| -->go run main.go -u {git_username} -F                                                                             |")
+	println("|____________________________________________________________________________________________________________________|")
+	println("|                                                                                                                    |")
+	println("| => To get user following use -f flag                                                                               |")
+	println("| -->go run main.go -u {git_username} -f                                                                             |")
+	println("|____________________________________________________________________________________________________________________|")
+
 }
