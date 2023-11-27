@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 func getUserInfo(api string) {
@@ -19,9 +20,24 @@ func getUserInfo(api string) {
 
 	var info GitInfo
 
+	// var user string;
+
 	json.Unmarshal(body, &info)
 
-	fmt.Printf("Name: %s \nUrl: %s \nBio: %s \nLocation: %s \nRepos: %d \nFollowers: %d \nFollowing: %d  \n", info.Name, info.Url, info.Bio, info.Location, info.Repos, info.Followers, info.Following)
+	name := "Name: " + info.Name
+	// email:= "Email: " + info.Email
+	// company:= "Company: " + info.Company
+	location := "Location: " + info.Location
+	bio := "Bio: " + info.Bio
+	repos := "Repos: " + strconv.Itoa(info.Repos)
+	follower := "Followers: " + strconv.Itoa(info.Followers)
+	following := "Following: " + strconv.Itoa(info.Following)
+
+	user := name + "\n" + location + "\n" + bio + "\n" + repos + "\n" + follower + "\n" + following
+
+	fmt.Println(border.Render(Padding.Render(user)))
+
+	// fmt.Printf(("Name: %s \nUrl: %s \nBio: %s \nLocation: %s \nRepos: %d \nFollowers: %d \nFollowing: %d  \n", info.Name, info.Url, info.Bio, info.Location, info.Repos, info.Followers, info.Following))
 }
 
 func getUserFollower(api string) {
@@ -37,12 +53,9 @@ func getUserFollower(api string) {
 
 	json.Unmarshal(body, &follower)
 
-	for i := -1; i < len(follower); i++ {
-		fmt.Println("|-->", (follower[i].User))
-
+	for i := 0; i < len(follower); i++ {
+		fmt.Println("|-->", follower[i].User)
 	}
-
-	// fmt.Printf(follower)
 }
 
 func getUserFollowing(api string) {
@@ -57,8 +70,7 @@ func getUserFollowing(api string) {
 	var following Follow
 
 	json.Unmarshal(body, &following)
-	for i := -1; i < len(following); i++ {
+	for i := 0; i < len(following); i++ {
 		fmt.Println("|-->", following[i].User)
-
 	}
 }

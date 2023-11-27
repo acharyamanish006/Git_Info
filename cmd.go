@@ -33,7 +33,7 @@ func argsCommand() {
 		UserFollowing(api)
 
 	case *help:
-		Help()
+		(Help())
 	case *showContribution:
 		contributionChart(*userFlag)
 	default:
@@ -59,21 +59,20 @@ func UserFollowing(api string) {
 	getUserFollowing(api)
 }
 func Help() {
-	println(" ____________________________________________________________________________________________________________________")
-	println("|                                                                                                                    |")
-	println(style.Render("| The program will then fetch all repositories from that user and print out their names, description, url, etc...|"))
-	println("|____________________________________________________________________________________________________________________|")
-	println("| 1) To get user details                                                                                             |")
-	println("|                                                                                                                    |")
-	println("| --> go run main.go -u {git_username}                                                                               |")
-	println("|____________________________________________________________________________________________________________________|")
-	println("| 2) To get user followers use -F flag                                                                               |")
-	println("|                                                                                                                    |")
-	println("| --> go run main.go -u {git_username} -F                                                                            |")
-	println("|____________________________________________________________________________________________________________________|")
-	println("|                                                                                                                    |")
-	println("| 3) To get user following use -f flag                                                                               |")
-	println("| --> go run main.go -u {git_username} -f                                                                            |")
-	println("|____________________________________________________________________________________________________________________|")
+	helpHeader := " The program will then fetch all repositories from that user and print out their names, description, url, etc...\n"
+	help_1 := "\n1) To get user details\n --> go run main.go -u {git_username}\n"
 
+	help_2 := "\n2) To see the followers of a particular git user\n --> go run main.go -u {git_username} -F\n"
+
+	help_3 := "\n3) To get user following use -f flag \n --> go run main.go -u {git_username} -f  \n"
+
+	helpHeader = (helpStyle.Render(alignCenter.Render(Bold.Render(helpHeader))))
+
+	helpOption := help_1 + help_2 + help_3
+
+	helpOption = alignLeft.Render(whiteColor.Render(helpOption))
+
+	help := helpHeader + helpOption
+
+	fmt.Println(border.Render(help))
 }
