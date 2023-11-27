@@ -6,22 +6,29 @@ Project is not complete !
 # How To Run
 1. Clone this repository to your local machine using the following command: 
 2. The program will then fetch all repositories from that user and print out their names, description, url, etc...
-3. ```bash
-   go run main.go -u {git_username}
+3. First build the project, run the following shell script:
+   ```bash
+   ./build.sh
    ```
-   #To get user followers use -F flag
+   => Then executable file will be created [main]
 4. ```bash
-   go run main.go -u {git_username} -F
+   ./main -u {git_username}
    ```
-   #To get user following use -f flag
-   
+   => To get user followers use -F flag
 5. ```bash
-   go run main.go -u {git_username} -f
+   ./main -u {git_username} -F
    ```
-   #To get help
+   =>To get user following use -f flag
+   
 6. ```bash
-   go run main.go -h
+   ./main -u {git_username} -f
    ```
-   #To get user Contribution use -c flag
+   => To get help
 7. ```bash
-   go run main.go -u {git_username} -c
+     ./main -h
+   ```
+   =>To get user Contribution use -c flag
+      
+8. ```bash
+   ./main -u {git_username} -c
+   ````
