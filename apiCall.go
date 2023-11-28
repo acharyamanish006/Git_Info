@@ -42,7 +42,7 @@ func getUserInfo(api string) {
 	// fmt.Printf(("Name: %s \nUrl: %s \nBio: %s \nLocation: %s \nRepos: %d \nFollowers: %d \nFollowing: %d  \n", info.Name, info.Url, info.Bio, info.Location, info.Repos, info.Followers, info.Following))
 }
 
-func getUserFollower(api string) {
+func getUserFollower(api string, username any) {
 	res, err := http.Get(api + "/followers")
 	if err != nil {
 		panic(err)
@@ -56,15 +56,16 @@ func getUserFollower(api string) {
 	json.Unmarshal(body, &follower)
 
 	var user []string
+	fmt.Printf("%q: has %d Followers\n", username, len(follower))
 
 	for i := 0; i < len(follower); i++ {
 		// fmt.Println("|-->", follower[i].User)
 		user = append(user, follower[i].User)
 	}
-	Select(user)
+	Select(user, "Followers")
 }
 
-func getUserFollowing(api string) {
+func getUserFollowing(api string, username any) {
 	res, err := http.Get(api + "/following")
 	if err != nil {
 		panic(err)
@@ -80,28 +81,34 @@ func getUserFollowing(api string) {
 	// 	fmt.Println("|-->", following[i].User)
 	// }
 	var user []string
+	fmt.Printf("%q: has %d Following\n", username, len(following))
 
 	for i := 0; i < len(following); i++ {
 		// fmt.Println("|-->", follower[i].User)
 		user = append(user, following[i].User)
 	}
-	Select(user)
+	Select(user, "Following")
 }
 
-func Select(user []string) {
+func Select(user []string, follow string) {
+
 	prompt := promptui.Select{
-		Label: "Select User",
+		// Label: "Select User",
 		Items: user,
+		Size:  len(user),
 	}
 
 	_, result, err := prompt.Run()
+	// fmt.Printf("%q: has %d %s\n", result, len(user), follow)
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
 		return
 	}
 
-	fmt.Printf("You choose %q\n", result)
+	fmt.Printf("Showing The Information of:%q\n", result)
+	// fmt.Printf("%q: has %d %s\n", result, len(user), follow)
+
 	api := "https://api.github.com/users/" + result
 	getUserInfo(api)
 }

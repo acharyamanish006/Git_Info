@@ -23,14 +23,14 @@ func argsCommand() {
 			fmt.Println("Error: Username not provided. Use -u flag.")
 			os.Exit(1)
 		}
-		UserFollower(api)
+		UserFollower(api, *userFlag)
 
 	case *followingFlag:
 		if *userFlag == "" {
 			fmt.Println("Error: Username not provided. Use -u flag.")
 			os.Exit(1)
 		}
-		UserFollowing(api)
+		UserFollowing(api, *userFlag)
 
 	case *help:
 		(Help())
@@ -41,22 +41,22 @@ func argsCommand() {
 	}
 }
 
-func UserFollower(api string) {
+func UserFollower(api string, user any) {
 
 	getUserInfo(api)
 	println(" ____________________________________________________________")
 	println("|                                                            |")
 	println("|--------------------[ Followers ]---------------------------|")
-	getUserFollower(api)
+	getUserFollower(api, user)
 
 }
 
-func UserFollowing(api string) {
+func UserFollowing(api string, user any) {
 	getUserInfo(api)
 	println(" ____________________________________________________________")
 	println("|                                                            |")
 	println("|--------------------[ Following ]---------------------------|")
-	getUserFollowing(api)
+	getUserFollowing(api, user)
 }
 func Help() {
 	helpHeader := " The program will then fetch all repositories from that user and print out their names, description, url, etc...\n"
