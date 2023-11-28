@@ -64,11 +64,11 @@ func Help() {
 
 	helpHeader = (helpStyle.Render(alignCenter.Render(Bold.Render(helpHeader))))
 
-	helpOption := help_1 + help_2 + help_3
+	helpOption := orange.Render(help_1) + eal.Render(help_2) + red.Render(help_3)
 
 	helpOption = alignLeft.Render(whiteColor.Render(helpOption))
 
-	help := helpHeader + helpOption
+	help := yellow.Render(helpHeader) + Bold.Render(helpOption)
 
-	fmt.Println(border.Render(help))
+	fmt.Println(helpBorder.Render(help))
 }

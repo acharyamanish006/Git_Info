@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -96,7 +97,9 @@ func getUserFollowing(api string, username string) {
 
 func Select(user []string, follow string, username string) {
 
-	data := create2DArray(user, len(user)/4, 4)
+	row := int(math.Ceil(float64(len(user)) / 4.0))
+
+	data := create2DArray(user, (row), 4)
 
 	re := lipgloss.NewRenderer(os.Stdout)
 	baseStyle := re.NewStyle().Padding(0, 1)
@@ -158,11 +161,11 @@ func Select(user []string, follow string, username string) {
 func create2DArray(data []string, rows, cols int) [][]string {
 	var array2D [][]string
 
-	// Check if there are enough elements for the specified rows and cols
-	if rows*cols > len(data) {
-		fmt.Println("Not enough elements to create a 2D array.")
-		return nil
-	}
+	// // Check if there are enough elements for the specified rows and cols
+	// if rows*cols > len(data) {
+	// 	fmt.Println("Not enough elements to create a 2D array.")
+	// 	return nil
+	// }
 
 	// Populate the 2D array
 	for i := 0; i < rows; i++ {
