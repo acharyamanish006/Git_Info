@@ -41,21 +41,17 @@ func argsCommand() {
 	}
 }
 
-func UserFollower(api string, user any) {
+func UserFollower(api string, user string) {
 
 	getUserInfo(api)
-	println(" ____________________________________________________________")
-	println("|                                                            |")
-	println("|--------------------[ Followers ]---------------------------|")
+	println((FollowStyle.Render("Followers")))
 	getUserFollower(api, user)
 
 }
 
-func UserFollowing(api string, user any) {
+func UserFollowing(api string, user string) {
 	getUserInfo(api)
-	println(" ____________________________________________________________")
-	println("|                                                            |")
-	println("|--------------------[ Following ]---------------------------|")
+	println((FollowStyle.Render("Following")))
 	getUserFollowing(api, user)
 }
 func Help() {
