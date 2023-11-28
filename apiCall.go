@@ -6,6 +6,8 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+
+	"github.com/manifoldco/promptui"
 )
 
 func getUserInfo(api string) {
@@ -53,9 +55,13 @@ func getUserFollower(api string) {
 
 	json.Unmarshal(body, &follower)
 
+	var user []string
+
 	for i := 0; i < len(follower); i++ {
-		fmt.Println("|-->", follower[i].User)
+		// fmt.Println("|-->", follower[i].User)
+		user = append(user, follower[i].User)
 	}
+	Select(user)
 }
 
 func getUserFollowing(api string) {
@@ -70,7 +76,32 @@ func getUserFollowing(api string) {
 	var following Follow
 
 	json.Unmarshal(body, &following)
+	// for i := 0; i < len(following); i++ {
+	// 	fmt.Println("|-->", following[i].User)
+	// }
+	var user []string
+
 	for i := 0; i < len(following); i++ {
-		fmt.Println("|-->", following[i].User)
+		// fmt.Println("|-->", follower[i].User)
+		user = append(user, following[i].User)
 	}
+	Select(user)
+}
+
+func Select(user []string) {
+	prompt := promptui.Select{
+		Label: "Select User",
+		Items: user,
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You choose %q\n", result)
+	api := "https://api.github.com/users/" + result
+	getUserInfo(api)
 }
