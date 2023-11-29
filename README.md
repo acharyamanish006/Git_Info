@@ -35,6 +35,7 @@ The project is not complete!
      ./git_info -h
       ```
 11. To get user Contribution use -c flag
-      
+      ![Screenshot from 2023-11-29 16-26-14](https://github.com/acharyamanish006/Git_Info/assets/100832817/19594d74-bd92-462c-a17e-1eb11e67c9cc)
+
       ````bash
        ./git_info -u {git_username} -c
