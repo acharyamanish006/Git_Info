@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
 
@@ -22,14 +23,12 @@ func contributionChart(username string) {
 		BorderColumn(true).
 		Rows(board...).
 		StyleFunc(func(row, col int) lipgloss.Style {
-			even := row%2 == 0
-			if even {
+			even := rand.Intn(5)
+			if even <= 2 {
 				return lipgloss.NewStyle().Padding(0, 1).Background(lipgloss.Color("#078203"))
-			} else if row%3 == 0 {
+			} else {
 				// Styling for rows divisible by 3
 				return lipgloss.NewStyle().Padding(0, 1).Background(lipgloss.Color("#034f01"))
-			} else {
-				return lipgloss.NewStyle().Padding(0, 1).Background(lipgloss.Color("#91B39F"))
 			}
 
 		})
