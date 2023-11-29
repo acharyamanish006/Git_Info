@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func argsCommand() {
+func ArgsCommand() {
 	userFlag := flag.String("u", "", "Specify the username")
 	followerFlag := flag.Bool("F", false, "Specify the follower")
 	followingFlag := flag.Bool("f", false, "Specify the following")

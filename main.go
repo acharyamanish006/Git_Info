@@ -15,5 +15,5 @@ type Follow []struct {
 }
 
 func main() {
-	argsCommand()
+	ArgsCommand()
 }

@@ -106,7 +106,7 @@ func Select(user []string, follow string, username string) {
 
 	t := table.New().
 		Border(lipgloss.NormalBorder()).
-		BorderStyle(re.NewStyle().Foreground(lipgloss.Color("#929292"))).
+		BorderStyle(re.NewStyle().Foreground(lipgloss.Color("#01BE85"))).
 		Width(72).
 		Rows(data...).
 		StyleFunc(func(row, col int) lipgloss.Style {
