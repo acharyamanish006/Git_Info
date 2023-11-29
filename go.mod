@@ -1,4 +1,4 @@
-module github.com/acharyamanish006/Git_Info
+module github.com/acharyamanish006/Git_INFO
 
 go 1.18
 
